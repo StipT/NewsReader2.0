@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">NewsReader</string>
+    <string name="google_maps">Maps</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="aboutAppTextTitle">About App</string>
+    <string name="aboutMeTitle">About Me</string>
+    <string name="aboutMentorTitle">About Mentor</string>
+    <string name="welcomeText">Welcome!</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="about_me_text">- Computer science student from Osijek\n\n- At the moment expanding my skill set in Android mobile development\n\n- tostipanic@gmail.com (Contact me, Hire me...)
+    </string>
+    <string name="my_name_text">Tomislav Stipanić</string>
+    <string name="aboutAppText">- NewsReader application\n\n- Android internship task\n\n- MVP \n\n- Kotlin\n\n- Koin\n\n- ReactiveX
+    </string>
+    <string name="about_mentor_name">Matija Marić</string>
+    <string name="about_mentor_text">- Blue Factory\n\n- Seasoned Mobile Dev\n\n- Don\'t know much else\n\n- Seems like a cool guy
+    </string>
+    <string name="title_home_icon">Home</string>
+    <string name="title_workplace_icon">Workplace</string>
+    <string name="title_current_location_icon">Current location</string>
+    <string name="map_title">Maps</string>
+</resources>
