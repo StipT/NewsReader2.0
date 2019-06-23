@@ -1,26 +1,26 @@
 package com.tstipanic.factorynews_kotlin.news_list_screen.view
 
 import android.content.Intent
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.preference.PreferenceManager
+import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import com.tstipanic.factorynews_kotlin.common.EXTRA_ITEM_POSITION
 import com.tstipanic.factorynews_kotlin.R
-import com.tstipanic.factorynews_kotlin.R.*
+import com.tstipanic.factorynews_kotlin.R.id
+import com.tstipanic.factorynews_kotlin.R.layout
+import com.tstipanic.factorynews_kotlin.common.EXTRA_ITEM_POSITION
 import com.tstipanic.factorynews_kotlin.common.ONBOARDING_COMPLETED
-import com.tstipanic.factorynews_kotlin.model.data.Article
 import com.tstipanic.factorynews_kotlin.map_screen.MapsActivity
+import com.tstipanic.factorynews_kotlin.model.data.Article
 import com.tstipanic.factorynews_kotlin.news_list_screen.presenter.NewsListPresenter
 import com.tstipanic.factorynews_kotlin.news_list_screen.recycler_adapter.RecyclerAdapter
 import com.tstipanic.factorynews_kotlin.onboarding_screen.view.OnBoardingActivity
 import com.tstipanic.factorynews_kotlin.single_article_screen.view.SingleArticleActivity
 import kotlinx.android.synthetic.main.activity_news_list.*
-import kotlinx.android.synthetic.main.activity_news_list.newsListToolbar
 import org.koin.android.ext.android.inject
 import org.koin.core.parameter.parametersOf
 
@@ -43,8 +43,12 @@ class NewsListActivity : AppCompatActivity(), NewsListView, OnClickedListener {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean = when (item.itemId) {
-        id.google_maps -> {startActivity(Intent(this, MapsActivity::class.java)); true}
-        else -> { super.onOptionsItemSelected(item)}
+        id.google_maps -> {
+            startActivity(Intent(this, MapsActivity::class.java)); true
+        }
+        else -> {
+            super.onOptionsItemSelected(item)
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -93,14 +97,16 @@ class NewsListActivity : AppCompatActivity(), NewsListView, OnClickedListener {
         goToSingleArticleActivity(position)
     }
 
-   override fun isOnBoardingCompleted() = PreferenceManager.getDefaultSharedPreferences(this).contains(ONBOARDING_COMPLETED)
+    override fun isOnBoardingCompleted() =
+        PreferenceManager.getDefaultSharedPreferences(this).contains(ONBOARDING_COMPLETED)
 
 
     override fun showOnBoarding() {
         startActivity(Intent(this, OnBoardingActivity::class.java))
-//        PreferenceManager.getDefaultSharedPreferences(this).edit().apply{
-//            putBoolean(ONBOARDING_COMPLETED, true)
-//            apply()
+        PreferenceManager.getDefaultSharedPreferences(this).edit().apply {
+            putBoolean(ONBOARDING_COMPLETED, true)
+            apply()
         }
     }
+}
 

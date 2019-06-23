@@ -21,4 +21,6 @@
     <string name="title_workplace_icon">Workplace</string>
     <string name="title_current_location_icon">Current location</string>
     <string name="map_title">Maps</string>
+    <string name="channel_name">channel_name1</string>
+    <string name="channel_description">This is my first channel</string>
 </resources>

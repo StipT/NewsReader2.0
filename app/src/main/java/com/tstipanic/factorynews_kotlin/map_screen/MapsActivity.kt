@@ -2,10 +2,10 @@ package com.tstipanic.factorynews_kotlin.map_screen
 
 import android.content.pm.PackageManager
 import android.location.Location
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v4.app.ActivityCompat
 import android.support.v4.content.ContextCompat
+import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
@@ -20,18 +20,34 @@ import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.gms.tasks.Task
 import com.tstipanic.factorynews_kotlin.R
+import com.tstipanic.factorynews_kotlin.common.EXTRA_MESSAGING_DATA1
+import com.tstipanic.factorynews_kotlin.common.EXTRA_MESSAGING_DATA2
+import com.tstipanic.factorynews_kotlin.common.EXTRA_MESSAGING_TITLE
 import kotlinx.android.synthetic.main.activity_maps.*
 
 const val FINE_LOCATION = android.Manifest.permission.ACCESS_FINE_LOCATION
 const val COURSE_LOCATION = android.Manifest.permission.ACCESS_COARSE_LOCATION
 const val LOCATION_PERMISSION_REQUEST_CODE = 1234
-const val DEFAULT_ZOOM = 15f
+const val DEFAULT_ZOOM = 16f
 
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private lateinit var mMap: GoogleMap
     private var locationPermissionGranted = false
 
+    companion object {
+        var active = false
+    }
+
+    override fun onResume() {
+        super.onResume()
+        active = true
+    }
+
+    override fun onPause() {
+        super.onPause()
+        active = false
+    }
 
     override fun onSupportNavigateUp(): Boolean {
         onBackPressed()
@@ -51,6 +67,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         supportActionBar?.setDisplayShowHomeEnabled(true)
         initMap()
         getLocationPermission()
+
+
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean = when (item.itemId) {
@@ -68,6 +86,12 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(workplaceLocation, zoomLevel))
         val marker = mMap.addMarker(MarkerOptions().title("Blue Factory").position(workplaceLocation))
         return true
+    }
+
+    private fun getLocationFromCoordinates(lat: Double, lng: Double, title: String) {
+        val latLng = LatLng(lat, lng)
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, DEFAULT_ZOOM))
+        val marker = mMap.addMarker(MarkerOptions().position(latLng).title(title))
     }
 
     private fun findHomeLocation(): Boolean {
@@ -94,6 +118,14 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
             }
             mMap.isMyLocationEnabled = true
             mMap.uiSettings.isMyLocationButtonEnabled = false
+        }
+
+        if (intent.extras != null) {
+
+            val lat = intent.getStringExtra(EXTRA_MESSAGING_DATA1).toDouble()
+            val lng = intent.getStringExtra(EXTRA_MESSAGING_DATA2).toDouble()
+            val title = intent.getStringExtra(EXTRA_MESSAGING_TITLE)
+            getLocationFromCoordinates(lat, lng, title)
         }
     }
 
